@@ -530,6 +530,7 @@ a:hover {
 /*section 1*/
 
 #intro-section {
+
   background-image: url(../img/background.jpg);
   background-size: cover;
   background-position: center;

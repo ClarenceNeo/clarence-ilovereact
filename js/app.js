@@ -1,8 +1,3 @@
-window.onload = function() {
-  animateLogo();
-  animateRobot();
-  updateSliderControl();
-};
 
 // Logo Animation
 
@@ -63,4 +58,52 @@ function updateSliderControl() {
 window.onscroll = function () {
 	updateSliderControl();
 }
+
+function scrollToElement(element) {
+  var topOfElement = element.offsetTop;
+
+  TweenMax.to(window,1,{
+    scrollTo: {
+      y: topOfElement,
+    },
+
+    ease: Power2.easeInOut,
+  });
+}
+
+function addSmoothScrolling() {
+  var links = document.querySelectorAll("#slider-control a");
+
+  for(var i = 0; i < links.length; i++) {
+    var link = links[i];
+
+    link.addEventListener("click",function(e) {
+      e.preventDefault();
+
+      // BUG 警告！使用闭包或者 ES6 `let` 修复。
+      var href = link.attributes.getNamedItem("href").value;
+      var target = document.querySelector(href);
+      scrollToElement(target);
+    });
+  }
+}
+
+// function addScrollingBling() {
+//   var controller = new ScrollMagic.Controller();
+//   var moveIPhone = new new ScrollMagic.Scene({
+//     triggerElement: "#native",
+//     triggerHook: "onEnter",
+//     duration: "100%"
+//   }).addTo(controller)
+//     .addIndicators({name:"move iphone"});
+//     .setTween("#iphone-overlay",1,{width: "50%", y: 0});
+// }
+
+window.onload = function() {
+  animateLogo();
+  animateRobot();
+  updateSliderControl();
+  addSmoothScrolling();
+  // addScrollingBling()
+};
 
